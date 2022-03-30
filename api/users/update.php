@@ -12,21 +12,23 @@
   $database = new Database();
   $db = $database->connect();
 
-  // Instantiate blog post object
-  $post = new Users($db);
+  // Instantiate User object
+  $user = new Users($db);
 
   // Get raw posted data
   $data = json_decode(file_get_contents("php://input"));
-
+  // print_r($data);
+  // echo json_encode($data);
+  
   // Set ID to update
-  $post->id = $data->id;
+  $user->id = $data->id;
+  $user->name = $data->name;
+  $user->email = $data->email;
+  $user->password = $data->password;
 
-  $post->name = $data->name;
-  $post->email = $data->email;
-  $post->password = $data->password;
-
-  // Update post
-  if($post->update()) {
+  print_r($user);
+  // Update user
+  if($user->update()) {
     echo json_encode(
       array('message' => 'User Updated')
     );
